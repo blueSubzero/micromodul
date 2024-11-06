@@ -1,0 +1,31 @@
+#Info
+Get-Disk
+
+#Info
+Get-Partition
+
+#Delete partition
+#Remove-Partition -PartitionNumber 4 -DiskNumber 0 -Verbose
+
+#Resize. First thing is to shrink the current partition and make a room for the other partitions
+#Resize-Partition -DiskNumber 0 -PartitionNumber 3 -Size 200GB
+
+#Create new partition
+#New-Partition -DiskNumber 0 -Size 400GB -GptType "{c12a7328-f81f-11d2-ba4b-00a0c93ec93b}" -AssignDriveLetter D
+#New-Partition -DiskNumber 0 -UseMaximumSize -DriveLetter D
+
+#Change drive letter
+#Get-Partition -DiskNumber 0 -PartitionNumber 6 | Set-Partition -NewDriveLetter D
+
+#Info
+Get-Volume
+
+#Format the volume
+#Format-Volume -DriveLetter D -FileSystem NTFS -Force -Full -Verbose
+
+#Get min and max size of the partition
+Get-PartitionSupportedSize -DiskNumber 0 -PartitionNumber 3 | select @{Name="Minimum Size (GB)";
+Expression={$_.SizeMin/1GB}}, @{Name="Maximum Size (GB)";Expression={$_.SizeMax/1GB}}
+
+#Check disk for errors
+chkdsk D: /f /r
