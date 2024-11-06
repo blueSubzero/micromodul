@@ -1,2 +1,1 @@
-# SQL
-# MECM sql 
+# One liners for quick troubleshooting
